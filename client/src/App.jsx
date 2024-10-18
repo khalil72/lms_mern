@@ -1,13 +1,16 @@
-
-import { Button } from './components/ui/button'
+import { Route, Routes } from "react-router-dom"
+import AuthPage from "./pages/auth"
+import HomePage from "./pages/home"
 
 function App() {
  
 
   return (
     <>
-    <Button variant="destructive">Button</Button>
-
+     <Routes>
+     <Route path='/'  exact element={<HomePage />}/>
+      <Route path='/auth'  element={<AuthPage />}/>
+     </Routes>
     </>
   )
 }
