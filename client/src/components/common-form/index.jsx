@@ -12,7 +12,7 @@ const CommonForm = ({formControls=[] , handleSubmit , buttonText, isButtonDisabl
         formData={formData}
         setFormData={setFormData}
         />
-       <Button disabled={isButtonDisabled} className='mt-5 w-full bg-gray-300 rounded-full hover:border-2'>{buttonText || 'Submit'}</Button>
+       <Button disabled={isButtonDisabled} className='mt-5 w-full bg-black text-white rounded-full hover:border-2 hover:text-black'>{buttonText || 'Submit'}</Button>
     </form>
   )
 }
