@@ -1,18 +1,50 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import { Form } from '../../components/ui/form'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { GraduationCap } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import CommonForm from '../../components/common-form'
+import { signInFormControls, signUpFormControls } from '../../config'
+import { AuthContext } from '../../context/auth-context'
 
 
 const AuthPage = () => {
     const [activeTab , setActiveTab] = useState('signIn');
 
+    const {
+        signInFormData,
+        setSignInFormData,
+        signUpFormData,
+        setSignUpFormData,
+        handleRegisterUser,
+        handleLoginUser
+    }=  useContext(AuthContext);
+
     const onHandleTabChange =(value)=>{
       setActiveTab(value);
     }
+    const checkIfSignInFormIsValid = () => {
+        return (
+            signInFormData &&
+            signInFormData.email !== '' &&
+            signInFormData.password !== ''
+        );
+    };
+
+    // console.log('signInformData',signInFormData);
+
+    const checkIfSignUpFormIsValid = () => {
+        return (
+            signUpFormData && 
+            signUpFormData.username !== '' &&
+            signUpFormData.email !== '' && 
+            signUpFormData.password !== '' 
+        ); 
+    };
+    
   return (
     <div className='flex flex-col min-h-screen'>
         <header className='px-4 lg:px-6 h-14 flex items-center border-b'>
@@ -32,7 +64,7 @@ const AuthPage = () => {
                     </TabsList>
                     <TabsContent  value={'signIn'}>
                         <Card className='p-6 space-y-4'>
-                            <CardHeader>
+                            <CardHeader className='mb-0'>
                                 <CardTitle>
                                     SignIn into your Account
                                 </CardTitle>
@@ -41,12 +73,42 @@ const AuthPage = () => {
                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-2">
-                                text
+                                <CommonForm 
+                                 formControls={signInFormControls}
+                                 buttonText={"Sign In"}
+                                 formData={signInFormData}
+                                 setFormData={setSignInFormData}
+                                 isButtonDisabled={!checkIfSignInFormIsValid()}
+                                 handleSubmit={handleLoginUser}
+                                />
                             </CardContent>
 
                         </Card>
                     </TabsContent>
-                    <TabsContent value={"signUp"}>Signup</TabsContent>
+                    <TabsContent value={"signUp"}>
+                    <Card className='p-6 space-y-4'>
+                            <CardHeader>
+                                <CardTitle>
+                                    Create a new Account
+                                </CardTitle>
+                                <CardDescription>
+                                Enter your details to get started
+                </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-2">
+                                <CommonForm 
+                                formControls={signUpFormControls}
+                                buttonText={'Sign up'}
+                                formData={signUpFormData}
+                                setFormData={setSignUpFormData}
+                                isButtonDisabled={!checkIfSignUpFormIsValid()}
+                                handleSubmit={handleRegisterUser}
+                                />
+                            </CardContent>
+
+                        </Card>
+
+                    </TabsContent>
 
                 </Tabs>
 
