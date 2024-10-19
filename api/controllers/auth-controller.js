@@ -1,3 +1,7 @@
 export const register = (req,res,next)=>{
-    console.log('router connected')
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
 }
