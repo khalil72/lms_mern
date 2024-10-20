@@ -25,7 +25,6 @@ app.use('/api/auth' , authRouter);
 
 
 app.use((err,res,next) =>{
-    
     const statusCode = err.statusCode || 500;
     const message = err.message || 'internal message error';
     res.status(statusCode).json({

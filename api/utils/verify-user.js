@@ -1,30 +1,29 @@
-import { Jwt } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 const verifyToken = (token ,secretKey) =>{
-    return Jwt.verify(token , secretKey);
+    return jwt.verify(token , secretKey);
 }
 
-const Authenticate = (req,res,next)=>{
-    const authHeader = req.headers.authorization;
-    console.log('authHeader==>', authHeader);
-    if(!authHeader){
-        return res.status(401).json({
-            success:false,
-            message: "user is not authenticated"
-        })
+const Authenticate = (req, res, next) => {
+    const token = req.headers['authorization']?.split(' ')[1]; // Extract the token from the Authorization header
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'No token provided',
+      });
     }
-    const token = authHeader.split(" ")[1];
-    try {
-        const payload = verifyToken(token, 'JWT_SECRET');
-        req.user = payload;
-        next();
-
-        
-    } catch (error) {
+  
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
         return res.status(401).json({
-            success:false,
-            message: "invalid Token"
-        })
-    }
-}
+          success: false,
+          message: 'Failed to authenticate token',
+        });
+      }
+      
+      // If the token is valid, attach the user info to req.user
+      req.user = decoded; 
+      next();
+    });
+  };
 export default Authenticate

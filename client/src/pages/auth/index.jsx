@@ -1,9 +1,8 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-import { Form } from '../../components/ui/form'
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { GraduationCap } from 'lucide-react'
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CommonForm from '../../components/common-form'

@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken'
 import User from "../modal/user.model.js";
 import { errorHandler } from "../utils/error.js";
 import bcryptjs from 'bcryptjs'
@@ -34,4 +35,44 @@ export const register = async(req,res,next)=>{
     } catch (error) {
         next(error)
     }
+}
+
+
+export const login = async(req,res,next)=>{
+    const {userEmail , password} = req.body;
+    // console.log("reqbody" , req.body);
+    if(!userEmail || !password || userEmail === '' || password === ''){
+        return next(errorHandler(401 , 'all field are required'));
+    }
+    const  checkuser = await User.findOne({userEmail});
+    if(!checkuser) {
+        return next(errorHandler(401, 'user is not exit'))
+    }
+    const validPassword = bcryptjs.compareSync(password , checkuser.password);
+    if(!validPassword) {
+        return next(errorHandler(401, 'password  is not exit'))
+    }
+    //accessToken
+    const accessToken = jwt.sign(
+        {
+            id:checkuser._id,
+            userName:checkuser.userName,
+            userEmail: checkuser.userName,
+            role:checkuser.role
+        },
+        "JWT_SECRET", {expiresIn: '120m'}
+    );
+    res.status(200).json({
+        success:true,
+        messsage:"Loggin successfully",
+        data: {
+            accessToken,
+            user:{
+                _id:checkuser._id,
+                userName:checkuser.userName,
+                userEmail: checkuser.userName,
+                role:checkuser.role
+            }
+        }
+    })
 }
