@@ -48,6 +48,7 @@ export const signUpFormControls = [
     userName: "",
     userEmail: "",
     password: "",
+    role:"user",
   };
   
   export const languageOptions = [

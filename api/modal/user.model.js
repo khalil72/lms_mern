@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema =  new mongoose.Schema({
-    username:{
+    userName:{
         type:String,
         required:true,
     },
@@ -19,6 +19,10 @@ const userSchema =  new mongoose.Schema({
         default:'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png'
     },
     role:{
-        type:String
+        type:String,
+        
     }
-})
+});
+
+const User = mongoose.model('User' , userSchema);
+export default User;
