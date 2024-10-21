@@ -89,7 +89,7 @@ export default function AuthProvider({ children }) {
   //checkAuth
   const checkAuthUser = async () => {
     try {
-      const token = sessionStorage.getItem('access_token'); // Retrieve the token from sessionStorage
+      const token = sessionStorage.getItem('access_token'); 
       
       if (!token) {
         throw new Error("No token found");
@@ -98,7 +98,7 @@ export default function AuthProvider({ children }) {
       const response = await fetch('/api/auth/checkAuth', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`, // Add token in Authorization header
+          'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json',
         },
       });
@@ -144,6 +144,7 @@ useEffect(()=>{
         setSignUpFormData,
         handleLoginUser,
         handleRegisterUser,
+        auth
        
       }}
     >
