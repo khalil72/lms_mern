@@ -90,6 +90,7 @@ export default function AuthProvider({ children }) {
   const checkAuthUser = async () => {
     try {
       const token = sessionStorage.getItem('access_token'); 
+      console.log("token")
       
       if (!token) {
         throw new Error("No token found");

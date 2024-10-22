@@ -7,6 +7,7 @@ import InstructorsDashboard from "./pages/instructors";
 import StudentHomePage from "./pages/student/home";
 import NotFoundPage from "./pages/not-found";
 import StudentCommonLayout from "./components/student-view/common-layout";
+import AddNewCourse from "./pages/instructors/add-new-course";
 
 
 function App() {
@@ -34,6 +35,16 @@ function App() {
           element={
             <RouteGuard
               element={<InstructorsDashboard />}
+              authenticated={auth?.authenticate}
+              user={auth?.user}
+            />
+          }
+        />
+        <Route
+          path="/instructor/create-new-course"
+          element={
+            <RouteGuard
+              element={<AddNewCourse />}
               authenticated={auth?.authenticate}
               user={auth?.user}
             />
