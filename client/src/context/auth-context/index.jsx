@@ -43,13 +43,13 @@ export default function AuthProvider({ children }) {
           user: data.data.user
         });
   
-        console.log("Login successful:", data);
+        // console.log("Login successful:", data);
       } else {
         setAuth({
           authenticate: false,
           user: null
         });
-        console.log("Failed to login");
+        // console.log("Failed to login");
       }
     } catch (error) {
       console.log("Error logging in:", error);
@@ -127,11 +127,16 @@ export default function AuthProvider({ children }) {
     }
   };
   
-
- 
 useEffect(()=>{
   checkAuthUser();
-},[])
+},[]);
+
+const resetCridential =()=>{
+  setAuth({
+    authenticate:false,
+    user:null
+  })
+}
   
   console.log(auth, "gf");
 
@@ -144,8 +149,8 @@ useEffect(()=>{
         setSignUpFormData,
         handleLoginUser,
         handleRegisterUser,
-        auth
-       
+        auth,
+        resetCridential
       }}
     >
       {children}

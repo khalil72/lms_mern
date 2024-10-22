@@ -28,6 +28,8 @@ function RouteGuard({ authenticated, user, element }) {
     return <Navigate to="/instructor" />;
   }
 
+ 
+
   return <Fragment>{element}</Fragment>;
 }
 
